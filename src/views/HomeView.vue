@@ -1,18 +1,32 @@
+<!--
+ * @Author: XiaWuSharve sharve@foxmail.com
+ * @Date: 2022-07-20 08:15:46
+ * @LastEditors: XiaWuSharve sharve@foxmail.com
+ * @LastEditTime: 2022-07-20 15:25:28
+ * @FilePath: \rogra-frontend\src\views\HomeView.vue
+ * @Description: 主页
+-->
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <v-container fluid>
+    <hello-world />
+  </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
-@Component({
+import HelloWorld from '@/components/HelloWorld.vue';
+import Vue from 'vue'
+export default Vue.extend({
   components: {
     HelloWorld,
   },
+  data() {
+    return {
+      urls: [
+        { name: '文章', route: 'blog' },
+        { name: '日记', route: 'diary' },
+        { name: '资源', route: 'resource' },
+      ]
+    };
+  }
 })
-export default class HomeView extends Vue {}
 </script>
