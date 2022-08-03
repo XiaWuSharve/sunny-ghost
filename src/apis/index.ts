@@ -2,13 +2,13 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-27 09:39:05
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-07-31 15:54:07
+ * @LastEditTime: 2022-08-01 10:04:31
  * @FilePath: \rogra-frontend\src\apis\index.ts
  * @Description: axios封装
  */
 /* eslint-disable */
 import { Response } from "@/interfaces/Response";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const api = axios.create({
   baseURL: "/api",
@@ -16,15 +16,22 @@ const api = axios.create({
   withCredentials: true,
 });
 
-api.interceptors.response.use((res) => {
-  const { status, statusText, data } = res;
+function formatResponse(res: AxiosResponse): Response {
+  const { status, data } = res;
+  const { message, ...rest } = data;
   const response = {
     success: status >= 200 && status <= 299,
     status,
-    statusText,
-    data,
+    message,
+    data: rest,
   };
   return response;
+}
+
+api.interceptors.response.use((res) => {
+  return formatResponse(res);
+}, err => {
+  return formatResponse(err.response);
 });
 
 async function request(url: string, method: string, data?: any): Promise<Response> {
@@ -33,11 +40,11 @@ async function request(url: string, method: string, data?: any): Promise<Respons
   } else if (method === "post") {
     data = { data };
   }
-  return api({
+  return await api({
     url,
     method,
     ...data,
-  }).catch(err => err.response) as Promise<Response>;
+  }) as unknown as Promise<Response>;
 }
 
 export async function get(url: string, params?: any): Promise<Response> {

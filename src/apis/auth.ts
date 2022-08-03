@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-27 10:11:12
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-07-29 12:01:35
+ * @LastEditTime: 2022-08-01 10:48:46
  * @FilePath: \rogra-frontend\src\apis\auth.ts
  * @Description: 验证apis
  */
@@ -26,4 +26,16 @@ export async function login(
   password: string
 ): Promise<Response> {
   return post(apis.login, { username, password });
+}
+
+/**
+ * @description: 
+ * @param {string} username
+ * @param {string} password
+ * @param {string} captcha
+ * @param {string} hash
+ * @return {*} message
+ */
+export async function regist(username: string, password: string, captcha: string, hash: string): Promise<Response> {
+  return post(apis.regist, { username, password, captcha, hash });
 }

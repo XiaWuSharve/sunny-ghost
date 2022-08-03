@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-25 15:59:06
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-07-31 15:55:06
+ * @LastEditTime: 2022-08-01 19:09:39
  * @FilePath: \rogra-frontend\src\views\auth\LoginView.vue
  * @Description: 登录界面
 -->
@@ -20,11 +20,12 @@
         </div>
         <v-card-text>
             <v-form ref="form" v-model="valid">
-                <v-text-field v-model="username" :rules="usernameRules()" label="用户名"></v-text-field>
-                <v-text-field v-model="password" :rules="passwordRules()" label="密码" type="password"></v-text-field>
+                <v-text-field v-model="username" :rules="defaultRules()" label="用户名"></v-text-field>
+                <v-text-field v-model="password" :rules="defaultRules()" label="密码" type="password"
+                    @keydown.enter="login"></v-text-field>
                 <v-row align="center">
                     <v-col cols="4">
-                        <v-checkbox label="记住我"></v-checkbox>
+                        <v-checkbox label="记住我" v-model="rememberMe"></v-checkbox>
                     </v-col>
                     <v-col>
                         <v-btn :loading="loading" :disabled="!valid" @click="login" block>登录</v-btn>
@@ -37,7 +38,8 @@
 
 <script lang="ts">
 import { login } from '@/apis/auth';
-import { lengthValidation, requiredValidation } from '@/utils/validation'
+import { encryptPassword } from '@/utils/encrypt';
+import { defaultRules } from '@/utils/validation'
 import Vue from 'vue'
 export default Vue.extend({
     data() {
@@ -45,28 +47,21 @@ export default Vue.extend({
             valid: false,
             username: '',
             password: '',
+            rememberMe: true,
             loading: false,
         }
     },
     methods: {
-        usernameRules() {
-            return [requiredValidation, lengthValidation(50)];
-        },
-        passwordRules() {
-            return [requiredValidation, lengthValidation(50)];
-        },
+        defaultRules,
         async login() {
-            if (!this.$refs.form.validate()) return;
             this.loading = true;
-            const res = await login(this.username, this.password);
-            if (res.success) {
-                this.$store.commit('setAccessCode', res.data.access_code);
-                this.$store.commit('showTip', { message: '登录成功OwO', color: 'green' });
-                this.$router.push('/');
-            } else if (res.status === 401) {
-                this.$store.commit('showTip', { message: '用户名或密码错误QAQ', color: 'red' });
-            } else {
-                this.$store.commit('showTip', { message: '服务器错误XAX', color: 'purple' });
+            if (this.$refs.form.validate()) {
+                const res = await login(this.username, await encryptPassword(this.password));
+                if (res.success) {
+                    this.$store.commit('setAccessCode', res.data.access_code);
+                    this.$router.push('/');
+                }
+                this.$store.commit('showTip', res);
             }
             this.loading = false;
         }
