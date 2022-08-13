@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-07-27 15:43:52
+ * @LastEditTime: 2022-08-13 20:40:57
  * @FilePath: \rogra-frontend\vue.config.js
  * @Description: vue配置
  */
@@ -14,7 +14,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://19dfc8d3.cpolar.cn',
         changeOrigin: true,
         pathRewrite: {
           '/api': ''
