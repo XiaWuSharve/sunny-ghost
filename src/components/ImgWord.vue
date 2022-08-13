@@ -35,7 +35,7 @@ export default Vue.extend({
         src: String,
         title: String,
         text: String,
-        time: String,
+        time: Date,
         likes: Number,
         comments: Number,
         collections: Number,

@@ -50,18 +50,18 @@
       <v-spacer></v-spacer>
       <v-sheet width="300" color="transparent" class="pe-16 d-flex flex-column">
         <v-container class="fill-height pa-0 justify-center">
-          <v-menu top offset-y open-on-hover>
+          <v-tooltip top offset-y open-on-hover>
             <template v-slot:activator="{ on, attrs}">
               <v-icon v-on="on" v-bind="attrs">mdi-white-balance-sunny</v-icon>
             </template>
             <v-icon>mdi-white-balance-sunny</v-icon>
-          </v-menu>
-          <v-menu top offset-y open-on-hover>
+          </v-tooltip>
+          <v-tooltip top offset-y open-on-hover>
             <template v-slot:activator="{ on, attrs }">
               <v-icon v-on="on" v-bind="attrs">mdi-map-marker-radius-outline</v-icon>
             </template>
             <v-icon>mdi-white-balance-sunny</v-icon>
-          </v-menu>
+          </v-tooltip>
         </v-container>
         <div class="text-center">
           联系邮箱：sharve@foxmail.com

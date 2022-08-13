@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-25 15:59:27
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-01 19:10:10
+ * @LastEditTime: 2022-08-11 15:24:10
  * @FilePath: \rogra-frontend\src\views\auth\RegistView.vue
  * @Description: 注册界面
 -->
@@ -77,7 +77,7 @@ export default Vue.extend({
                 if (res.success) {
                     this.$router.push({ name: 'login' });
                 }
-                this.$store.commit('showTip', res);
+                this.$store.commit('showMessage', res);
             }
             this.loading = false;
         }

@@ -2,13 +2,13 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-21 11:10:08
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-07-21 12:45:59
+ * @LastEditTime: 2022-08-13 14:20:24
  * @FilePath: \rogra-frontend\src\components\carousel.vue
  * @Description: 轮播图组件
 -->
 <template>
-    <v-carousel cycle="5000" height="400" :show-arrows="false" hide-delimiters>
-        <v-carousel-item v-for="image in images" :key="image.url">
+    <v-carousel cycle height="400" :show-arrows="false" hide-delimiters>
+        <v-carousel-item v-for="image in images" :key="image.description">
             <v-sheet color="orange" class="fill-height">
                 <v-row align="center" justify="center" class="fill-height">
                     {{ image.description }}

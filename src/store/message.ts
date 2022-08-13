@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-29 13:56:29
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-01 13:33:04
+ * @LastEditTime: 2022-08-11 15:23:20
  * @FilePath: \rogra-frontend\src\store\tip.ts
  * @Description: 全局提示
  */
@@ -34,7 +34,7 @@ export const tip = {
     show: false,
   }),
   mutations: {
-    showTip(state: any, res: Response) {
+    showMessage(state: any, res: Response) {
       const { message } = res;
       state.message = res.status === 500 ? '服务器错误XAX' : message;
       state.color = Status[res.status].color || "blue";

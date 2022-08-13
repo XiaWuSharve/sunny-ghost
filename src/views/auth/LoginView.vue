@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-25 15:59:06
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-01 19:09:39
+ * @LastEditTime: 2022-08-11 15:24:21
  * @FilePath: \rogra-frontend\src\views\auth\LoginView.vue
  * @Description: 登录界面
 -->
@@ -58,10 +58,12 @@ export default Vue.extend({
             if (this.$refs.form.validate()) {
                 const res = await login(this.username, await encryptPassword(this.password));
                 if (res.success) {
-                    this.$store.commit('setAccessCode', res.data.access_code);
+                    console.log(res);
+                    if (this.rememberMe) this.$store.commit('setLoginLocal', res);
+                    else this.$store.commit('setLoginSession', res);
                     this.$router.push('/');
                 }
-                this.$store.commit('showTip', res);
+                this.$store.commit('showMessage', res);
             }
             this.loading = false;
         }

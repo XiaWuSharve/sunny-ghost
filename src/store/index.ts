@@ -1,6 +1,6 @@
 import Vuex from "vuex";
 import Vue from 'vue';
-import { tip } from "./tip";
+import { tip } from "./message";
 import { user } from "./user";
 
 Vue.use(Vuex)
