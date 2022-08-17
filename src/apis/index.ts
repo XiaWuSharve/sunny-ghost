@@ -2,23 +2,27 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-27 09:39:05
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-15 16:50:04
+ * @LastEditTime: 2022-08-16 14:12:26
  * @FilePath: \rogra-frontend\src\apis\index.ts
  * @Description: axios封装
  */
 /* eslint-disable */
+import FormData from "form-data";
 import { Response } from "@/interfaces/Response";
 import axios, { AxiosResponse } from "axios";
 
-const api = axios.create({
+const baseConfig = {
   baseURL:
     process.env.NODE_ENV === "production"
       ? "https://f061035.r3.vip.cpolar.cn"
       : "/api",
   timeout: 10000,
-});
+};
+
+const api = axios.create(baseConfig);
 
 function formatResponse(res: AxiosResponse): Response {
+  console.log(res);
   const { status, data } = res;
   const { message, ...rest } = data;
   const response = {
@@ -27,6 +31,7 @@ function formatResponse(res: AxiosResponse): Response {
     message,
     data: rest,
   };
+  console.log(response);
   return response;
 }
 
@@ -45,12 +50,12 @@ async function request(
   data?: any,
   token?: string
 ): Promise<Response> {
+  console.log(url, method, data, token);
   if (method === "get") {
     data = { params: data };
   } else if (method === "post") {
     data = { data };
   }
-  console.log(url);
   return (await api({
     url,
     method,
@@ -58,6 +63,17 @@ async function request(
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  })) as unknown as Promise<Response>;
+}
+
+export async function upload(url: string, filename: File): Promise<Response> {
+  const formData = new FormData();
+  formData.append("file", filename);
+  return (await api({
+    url,
+    method: "post",
+    data: formData,
+    headers: { "Content-Type": "multipart/form-data" },
   })) as unknown as Promise<Response>;
 }
 

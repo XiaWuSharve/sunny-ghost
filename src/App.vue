@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-07 13:02:03
+ * @LastEditTime: 2022-08-17 18:45:10
  * @FilePath: \rogra-frontend\src\App.vue
  * @Description: 根组件
 -->
@@ -12,11 +12,13 @@
     <v-snackbar :color="$store.state.tip.color" v-model="$store.state.tip.show">
       <v-icon class="pe-2">{{ $store.state.tip.icon }}</v-icon>{{ $store.state.tip.message }}
     </v-snackbar>
-    <v-btn fixed fab right bottom class="mb-16" @click="setTheme(!$vuetify.theme.dark)">
+    <v-fab-transition>
+      <v-btn @click="$vuetify.goTo(0, { duration: 500 })" v-show="!isTop" class="mb-16" fixed fab right bottom>
+        <v-icon>mdi-arrow-collapse-up</v-icon>
+      </v-btn>
+    </v-fab-transition>
+    <v-btn fixed fab right bottom @click="setTheme(!$vuetify.theme.dark)">
       <v-icon>{{ icon }}</v-icon>
-    </v-btn>
-    <v-btn fixed fab right bottom>
-      <v-icon>mdi-arrow-collapse-up</v-icon>
     </v-btn>
   </v-app>
 </template>
@@ -27,6 +29,7 @@ export default Vue.extend({
   data() {
     return {
       icon: 'mdi-white-balance-sunny',
+      isTop: true,
     }
   },
   created() {
@@ -34,6 +37,11 @@ export default Vue.extend({
       localStorage.theme = false;
     }
     this.setTheme(localStorage.theme === 'true');
+
+    window.addEventListener('scroll', () => {
+      const scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      this.isTop = scroll < 500;
+    });
   },
   methods: {
     setTheme(isDark: boolean) {

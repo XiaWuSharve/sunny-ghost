@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-24 09:51:07
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-13 16:10:05
+ * @LastEditTime: 2022-08-17 18:32:49
  * @FilePath: \rogra-frontend\src\views\BlogView.vue
  * @Description: 博文页面
 -->
@@ -44,9 +44,10 @@
                             </v-card-subtitle>
                         </div>
                         <v-divider></v-divider>
-                        <v-card-text>
-                            {{ blog.content }}
-                        </v-card-text>
+                        <mavon-editor style="z-index: 0" :boxShadow="false" :value="blog.content" :subfield="false"
+                            :defaultOpen="'preview'" :toolbarsFlag="false" :editable="false" :scrollStyle="true"
+                            :ishljs="true">
+                        </mavon-editor>
                     </v-card>
                     <card-vue title="评论" class="mt-8">
                         <v-card-text>

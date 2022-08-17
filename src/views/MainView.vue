@@ -2,20 +2,28 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-03 15:22:04
+ * @LastEditTime: 2022-08-17 18:17:55
  * @FilePath: \rogra-frontend\src\App.vue
  * @Description: 主网页组件
 -->
 <template>
   <div>
-    <v-app-bar height="60" clipped-left app>
-      <v-container class="py-0 fill-height">
-        <v-btn class="mr-10" width="0" color="grey darken-1" to="/" icon text>
-          <v-avatar size="35" color="grey darken-1"></v-avatar>
-        </v-btn>
-        <v-btn v-for="url in urls_left" :key="url.route" :to="url.route" text>{{ url.name }}</v-btn>
+    <v-app-bar clipped-left dense app>
+      <v-btn text class="d-flex pa-0 ma-0">
+        <v-avatar>
+          <v-icon size="48">mdi-weather-sunset</v-icon>
+        </v-avatar>
+        <div class="pl-3 text-subtitle-1 font-weight-black">
+          <div>夏午&镭镭</div>
+          <div>的小站</div>
+        </div>
+        
+      </v-btn>
+      <v-container class="fill-height py-0">
+        <v-btn class="fill-height" v-for="url in urls_left" :key="url.route" :to="url.route" text>{{ url.name }}</v-btn>
         <v-spacer></v-spacer>
-        <v-btn v-for="url in urls_right" :key="url.route" :to="url.route" text>{{ url.name }}</v-btn>
+        <v-btn class="fill-height" v-for="url in urls_right" :key="url.route" :to="url.route" text>{{ url.name }}
+        </v-btn>
       </v-container>
     </v-app-bar>
     <v-main app>
@@ -51,7 +59,7 @@
       <v-sheet width="300" color="transparent" class="pe-16 d-flex flex-column">
         <v-container class="fill-height pa-0 justify-center">
           <v-tooltip top offset-y open-on-hover>
-            <template v-slot:activator="{ on, attrs}">
+            <template v-slot:activator="{ on, attrs }">
               <v-icon v-on="on" v-bind="attrs">mdi-white-balance-sunny</v-icon>
             </template>
             <v-icon>mdi-white-balance-sunny</v-icon>

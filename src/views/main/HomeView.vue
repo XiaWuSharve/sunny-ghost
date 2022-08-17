@@ -2,50 +2,77 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-13 15:36:39
+ * @LastEditTime: 2022-08-17 18:16:40
  * @FilePath: \rogra-frontend\src\views\HomeView.vue
  * @Description: 主页
 -->
 <template>
   <div>
-    <carousel-vue></carousel-vue>
-    <v-container style="min-height: 400px">
+    <v-parallax height="600" src="@/assets/background/太阳.png">
+      <v-row align="center" justify="center">
+        <v-col class="text-center">
+          <div class="text-h1">Long Long Way To Go</div>
+          <div class="text-h6 mt-8 font-weight-black">感谢来访我们的小站！</div>
+        </v-col>
+      </v-row>
+    </v-parallax>
+    <v-container class="mt-16" style="min-height: 400px">
       <v-row>
         <v-col cols="12" sm="8">
-          <card-vue title="标题">
-            <template v-slot:navigation>
-              <v-btn text>go<v-icon>mdi-arrow-right</v-icon>
-              </v-btn>
-            </template>
-            <v-card-text>
-              <v-btn>执行</v-btn>
-            </v-card-text>
-          </card-vue>
-          <card-vue class="mt-5" title="博客文章">
-            <v-card-text>
-              <img-word title="React基本使用" src=""
-                text="hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!hello, world!"
-                :time="new Date('2021-10-10')" :likes="99" :comments="99" :collections="99">
-                <v-btn color="primary">go<v-icon>mdi-arrow-right</v-icon>
-                </v-btn>
-              </img-word>
-            </v-card-text>
-          </card-vue>
-          <v-card v-for="blog in blogs" :key="blog.title" class="mt-5">
-            <v-card-text>
-              <img-word :title="blog.title" src="" :text="blog.abstract" :time="blog.createdAt" :likes="blog.likeCount"
-                :comments="1" :collections="blog.collectCount">
-                <v-btn :to="`/blog/${blog._id}`" color="primary">go<v-icon>mdi-arrow-right</v-icon>
-                </v-btn>
-              </img-word>
-            </v-card-text>
-          </v-card>
-          <v-btn :loading="loading" @click="load_more">加载更多</v-btn>
+          <template v-for="(blog, index) in blogs">
+            <card-vue v-if="!index" :key="blog" title="博客文章">
+              <v-card-text>
+                <img-word :title="blog.title" src="" :text="blog.abstract" :time="blog.createdAt"
+                  :likes="blog.likeCount" :comments="1" :collections="blog.collectCount">
+                  <v-btn :to="`/blog/${blog._id}`" color="primary">go<v-icon>mdi-arrow-right</v-icon>
+                  </v-btn>
+                </img-word>
+              </v-card-text>
+            </card-vue>
+            <v-card v-else :key="blog._id" class="mt-5">
+              <v-card-text>
+                <img-word :title="blog.title" src="" :text="blog.abstract" :time="blog.createdAt"
+                  :likes="blog.likeCount" :comments="1" :collections="blog.collectCount">
+                  <v-btn :to="`/blog/${blog._id}`" color="primary">go<v-icon>mdi-arrow-right</v-icon>
+                  </v-btn>
+                </img-word>
+              </v-card-text>
+            </v-card>
+          </template>
+          <v-btn :loading="loading" @click="load_more" class="mt-5" block>加载更多</v-btn>
         </v-col>
         <v-col cols="12" sm="4">
-          <card-vue title="hello">
-            <v-card-text>你好</v-card-text>
-          </card-vue>
+          <v-card>
+            <v-list>
+              <template v-for="(blogger, index) in bloggers">
+                <v-divider :key="blogger.name" v-if="index !== 0" inset></v-divider>
+                <v-list-item :key="blogger.name">
+                  <v-list-item-avatar size="60">
+                    <v-img src="@/assets/avatar.png"></v-img>
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h5">{{ blogger.name }}</v-list-item-title>
+                    <v-row dense>
+                      <v-col align-self="start" cols="1">
+                        <div class="text-h4">“</div>
+                      </v-col>
+                      <v-col cols="10" class="text-subtitle-2">{{ blogger.description }}</v-col>
+                      <v-col align-self="end" cols="1">
+                        <div class="text-h4">”</div>
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+            </v-list>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <a target="_blank" :class="index ? 'pl-3' : ''" :href="website.spaceURL"
+                v-for="(website, index) in websites" :key="website.baseURL" icon>
+                <v-img sizes="32" :src="website.baseURL + 'favicon.ico'" style="background-color: white"></v-img>
+              </a>
+            </v-card-actions>
+          </v-card>
           <card-vue title="标签云" class="mt-5">
             <v-card-text>
               <v-row>
@@ -79,13 +106,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import CarouselVue from '@/components/CarouselVue.vue';
 import CardVue from '@/components/CardVue.vue';
 import ImgWord from '@/components/ImgWord.vue';
 import { getBlog } from '@/apis/blog';
 export default Vue.extend({
   components: {
-    CarouselVue,
     CardVue,
     ImgWord
   },
@@ -98,11 +123,26 @@ export default Vue.extend({
         { name: '日记', route: 'diary' },
         { name: '资源', route: 'resource' },
       ],
+      websites: [
+        { baseURL: 'https://www.bilibili.com/', spaceURL: 'https://space.bilibili.com/189090159/' },
+        { baseURL: 'https://www.github.com/', spaceURL: 'https://github.com/XiaWuSharve' },
+        { baseURL: 'https://blog.csdn.net/', spaceURL: 'https://blog.csdn.net/qq_19315559' }
+      ],
+      bloggers: [
+        {
+          name: '夏午',
+          description: '克服意识形态去承认自己是共产主义者就总能带动一些同志去学习马克思主义。',
+        },
+        {
+          name: '镭镭',
+          description: '大家好，这里是可爱又迷人的镭镭！',
+        },
+      ],
       blogs: [{
         _id: '0',
-        title: 'loading...',
-        abstract: 'loading...',
-        content: 'loading...',
+        title: '内容正在意识中涌现……',
+        abstract: '内容正在意识中涌现……',
+        content: '内容正在意识中涌现……',
         visitCount: 1005,
         likeCount: 1005,
         collectCount: 1005,
@@ -121,6 +161,10 @@ export default Vue.extend({
       } else this.$store.commit('showMessage', res);
       this.loading = false;
     }
-  }
+  },
+  async mounted() {
+    await this.load_more();
+    this.blogs.splice(0, 1);
+  },
 })
 </script>
