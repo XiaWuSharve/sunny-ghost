@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-27 09:39:05
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-16 14:12:26
+ * @LastEditTime: 2022-08-17 18:53:58
  * @FilePath: \rogra-frontend\src\apis\index.ts
  * @Description: axios封装
  */
@@ -14,7 +14,7 @@ import axios, { AxiosResponse } from "axios";
 const baseConfig = {
   baseURL:
     process.env.NODE_ENV === "production"
-      ? "https://f061035.r3.vip.cpolar.cn"
+      ? "https://e9cd778.r3.vip.cpolar.cn"
       : "/api",
   timeout: 10000,
 };
