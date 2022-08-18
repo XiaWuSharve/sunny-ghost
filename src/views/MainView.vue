@@ -2,22 +2,15 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-17 18:17:55
+ * @LastEditTime: 2022-08-17 23:50:37
  * @FilePath: \rogra-frontend\src\App.vue
  * @Description: 主网页组件
 -->
 <template>
   <div>
     <v-app-bar clipped-left dense app>
-      <v-btn text class="d-flex pa-0 ma-0">
-        <v-avatar>
-          <v-icon size="48">mdi-weather-sunset</v-icon>
-        </v-avatar>
-        <div class="pl-3 text-subtitle-1 font-weight-black">
-          <div>夏午&镭镭</div>
-          <div>的小站</div>
-        </div>
-        
+      <v-btn text>
+        <v-img src="@/assets/logo.svg"></v-img>
       </v-btn>
       <v-container class="fill-height py-0">
         <v-btn class="fill-height" v-for="url in urls_left" :key="url.route" :to="url.route" text>{{ url.name }}</v-btn>

@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-17 18:16:40
+ * @LastEditTime: 2022-08-18 09:44:37
  * @FilePath: \rogra-frontend\src\views\HomeView.vue
  * @Description: 主页
 -->
@@ -48,7 +48,7 @@
                 <v-divider :key="blogger.name" v-if="index !== 0" inset></v-divider>
                 <v-list-item :key="blogger.name">
                   <v-list-item-avatar size="60">
-                    <v-img src="@/assets/avatar.png"></v-img>
+                    <v-img :src="require(`@/assets/${blogger.avatar}`)"></v-img>
                   </v-list-item-avatar>
                   <v-list-item-content>
                     <v-list-item-title class="text-h5">{{ blogger.name }}</v-list-item-title>
@@ -131,10 +131,12 @@ export default Vue.extend({
       bloggers: [
         {
           name: '夏午',
+          avatar: 'Sharve.png',
           description: '克服意识形态去承认自己是共产主义者就总能带动一些同志去学习马克思主义。',
         },
         {
           name: '镭镭',
+          avatar: 'Rogra.png',
           description: '大家好，这里是可爱又迷人的镭镭！',
         },
       ],
