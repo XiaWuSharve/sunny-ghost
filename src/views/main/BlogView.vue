@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-24 09:51:07
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-17 18:32:49
+ * @LastEditTime: 2022-08-19 11:26:26
  * @FilePath: \rogra-frontend\src\views\BlogView.vue
  * @Description: 博文页面
 -->
@@ -86,7 +86,7 @@
 <script lang="ts">
 import { getBlog } from '@/apis/blog'
 import CardVue from '@/components/CardVue.vue'
-import { Blog } from '@/interfaces/blog/Blog'
+import { Blog, RequiredBlog } from '@/interfaces/blog/Blog'
 import Vue from 'vue'
 export default Vue.extend({
     components: { CardVue },
@@ -102,22 +102,11 @@ export default Vue.extend({
             }
         }
     },
-    // watch: {
-    //     async $route(to) {
-    //         console.log(to);
-
-    //     }
-    // },
     async mounted() {
-        const res = await getBlog({ id: this.$route.params.id });
+        const res = await getBlog<Blog>({ id: this.$route.params.id });
         if (res?.success) {
-            let { title, abstract, createdAt, visitCount, collectCount, content } = res.data.blog as Blog;
-            title = title || '';
-            abstract = abstract || '';
-            createdAt = createdAt || new Date('2021-10-10T12:00:00');
-            visitCount = visitCount || 1005;
-            collectCount = collectCount || 1005;
-            this.blog = { title, abstract, createdAt, visitCount, collectCount, content };
+            const { title, abstract, createdAt, visitCount, collectCount, content } = res.data;
+            this.blog = { title, abstract, createdAt, visitCount, collectCount, content } as RequiredBlog;
         } else this.$store.commit('showMessage', res);
     },
 })

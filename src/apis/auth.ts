@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-27 10:11:12
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-01 10:48:46
+ * @LastEditTime: 2022-08-19 09:47:23
  * @FilePath: \rogra-frontend\src\apis\auth.ts
  * @Description: 验证apis
  */
@@ -15,27 +15,26 @@ export async function getCaptcha(): Promise<Captcha> {
   return (await get(apis.captcha)).data;
 }
 
-/**
- * @description:
- * @param {string} username
- * @param {string} password
- * @return {*} access_code
- */
 export async function login(
   username: string,
   password: string
-): Promise<Response> {
-  return post(apis.login, { username, password });
+): Promise<Response<{ access_token: string }>> {
+  return post<{ access_token: string }>(apis.login, { username, password });
 }
 
 /**
- * @description: 
+ * @description:
  * @param {string} username
  * @param {string} password
  * @param {string} captcha
  * @param {string} hash
  * @return {*} message
  */
-export async function regist(username: string, password: string, captcha: string, hash: string): Promise<Response> {
-  return post(apis.regist, { username, password, captcha, hash });
+export async function regist(
+  username: string,
+  password: string,
+  captcha: string,
+  hash: string
+): Promise<Response<undefined>> {
+  return post<undefined>(apis.regist, { username, password, captcha, hash });
 }

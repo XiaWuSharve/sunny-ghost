@@ -2,20 +2,23 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-17 23:50:37
+ * @LastEditTime: 2022-08-19 11:52:19
  * @FilePath: \rogra-frontend\src\App.vue
  * @Description: 主网页组件
 -->
 <template>
   <div>
     <v-app-bar clipped-left dense app>
-      <v-btn text>
+      <v-btn @click="$router.push({ name: 'home' })" text>
         <v-img src="@/assets/logo.svg"></v-img>
       </v-btn>
       <v-container class="fill-height py-0">
-        <v-btn class="fill-height" v-for="url in urls_left" :key="url.route" :to="url.route" text>{{ url.name }}</v-btn>
+        <v-btn class="fill-height" v-for="url in urls_left" :key="url.route" text>{{ url.name
+        }}
+        </v-btn>
         <v-spacer></v-spacer>
-        <v-btn class="fill-height" v-for="url in urls_right" :key="url.route" :to="url.route" text>{{ url.name }}
+        <v-btn class="fill-height" v-for="url in urls_right" :key="url.route" :to="{ name: url.route }" text>{{ url.name
+        }}
         </v-btn>
       </v-container>
     </v-app-bar>

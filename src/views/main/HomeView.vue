@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-18 09:44:37
+ * @LastEditTime: 2022-08-19 11:14:06
  * @FilePath: \rogra-frontend\src\views\HomeView.vue
  * @Description: 主页
 -->
@@ -46,23 +46,9 @@
             <v-list>
               <template v-for="(blogger, index) in bloggers">
                 <v-divider :key="blogger.name" v-if="index !== 0" inset></v-divider>
-                <v-list-item :key="blogger.name">
-                  <v-list-item-avatar size="60">
-                    <v-img :src="require(`@/assets/${blogger.avatar}`)"></v-img>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title class="text-h5">{{ blogger.name }}</v-list-item-title>
-                    <v-row dense>
-                      <v-col align-self="start" cols="1">
-                        <div class="text-h4">“</div>
-                      </v-col>
-                      <v-col cols="10" class="text-subtitle-2">{{ blogger.description }}</v-col>
-                      <v-col align-self="end" cols="1">
-                        <div class="text-h4">”</div>
-                      </v-col>
-                    </v-row>
-                  </v-list-item-content>
-                </v-list-item>
+                <id-card-vue :key="blogger.name" :name="blogger.name" :avatar="blogger.avatar"
+                  :description="blogger.description">
+                </id-card-vue>
               </template>
             </v-list>
             <v-divider></v-divider>
@@ -108,11 +94,14 @@
 import Vue from 'vue'
 import CardVue from '@/components/CardVue.vue';
 import ImgWord from '@/components/ImgWord.vue';
+import IdCardVue from '@/components/IdCard.vue';
 import { getBlog } from '@/apis/blog';
+import { Blog, ImgWordBlog } from '@/interfaces/blog/Blog';
 export default Vue.extend({
   components: {
     CardVue,
-    ImgWord
+    ImgWord,
+    IdCardVue,
   },
   data() {
     return {
@@ -155,9 +144,14 @@ export default Vue.extend({
   methods: {
     async load_more() {
       this.loading = true;
-      const res = await getBlog({ page: this.page });
+      const res = await getBlog<Blog[]>({ page: this.page });
       if (res?.success) {
-        this.blogs.splice(this.blogs.length, 0, ...res.data.blogs);
+        const blogs = res.data.map(blog => {
+          const { _id, title, abstract, content, visitCount, likeCount, collectCount, createdAt } = blog;
+          return { _id, title, abstract, content, visitCount, likeCount, collectCount, createdAt } as unknown as ImgWordBlog;
+        });
+
+        this.blogs.splice(this.blogs.length, 0, ...blogs);
         console.log(this.blogs);
         this.page++;
       } else this.$store.commit('showMessage', res);

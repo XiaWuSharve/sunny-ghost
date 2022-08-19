@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-20 08:15:46
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-13 14:59:49
+ * @LastEditTime: 2022-08-19 11:37:27
  * @FilePath: \rogra-frontend\src\router\index.ts
  * @Description: 路由配置
  */
@@ -16,7 +16,6 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    // name: "main",
     component: MainViewVue,
     children: [
       {
@@ -34,7 +33,6 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/auth",
-    // name: "auth",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AuthView.vue"),
     children: [
@@ -52,7 +50,6 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/user",
-    // name: "admin",
     component: () => import("../views/UserView.vue"),
     children: [
       {
