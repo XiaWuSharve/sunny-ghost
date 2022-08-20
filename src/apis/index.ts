@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-27 09:39:05
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-19 11:20:42
+ * @LastEditTime: 2022-08-19 15:37:22
  * @FilePath: \rogra-frontend\src\apis\index.ts
  * @Description: axios封装
  */
@@ -22,7 +22,6 @@ const baseConfig = {
 const api = axios.create(baseConfig);
 
 function formatResponse<T = any>(res: AxiosResponse<any>): Response<T> {
-  console.log(res);
   const { status, data } = res;
   const { message, ...rest } = data;
   const response = {
@@ -31,7 +30,6 @@ function formatResponse<T = any>(res: AxiosResponse<any>): Response<T> {
     message,
     data: rest,
   };
-  console.log(response);
   return response;
 }
 
@@ -50,7 +48,6 @@ async function request<T = any>(
   data?: any,
   token?: string
 ): Promise<Response<T>> {
-  console.log(url, method, data, token);
   if (method === "get") {
     data = { params: data };
   } else if (method === "post") {

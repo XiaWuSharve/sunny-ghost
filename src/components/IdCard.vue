@@ -2,13 +2,13 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-08-19 10:01:06
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-19 10:03:42
+ * @LastEditTime: 2022-08-19 13:35:45
  * @FilePath: \rogra-frontend\src\components\IdCard.vue
  * @Description: 名片组件
 -->
 <template>
     <v-list-item>
-        <v-list-item-avatar size="60">
+        <v-list-item-avatar size="100">
             <v-img :src="require(`@/assets/${avatar}`)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>

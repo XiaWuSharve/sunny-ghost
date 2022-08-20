@@ -1,8 +1,9 @@
+import { extract } from "@/utils/extract";
 /*
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-08-09 20:01:48
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-19 10:51:00
+ * @LastEditTime: 2022-08-19 14:26:58
  * @FilePath: \rogra-frontend\src\apis\blog.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -29,23 +30,22 @@ export async function getBlog<T extends Blog | Blog[]>(
     res = (await get<Blog>(`${url}/${id}`, undefined, token)) as Response<T>;
   } else if (page !== undefined) {
     url = apis.user_blogs_page;
-    const { data, ...rest } = await get<{ blogs: Blog[] }>(`${url}/${page}`);
-    res = { data: data.blogs, ...rest } as unknown as Response<T>;
+    res = extract(
+      await get<{ blogs: Blog[] }>(`${url}/${page}`),
+      "blogs"
+    ) as Response<T>;
   } else if (category_id) {
     url = admin ? apis.admin_blogs : apis.user_blogs_category;
-    const { data, ...rest } = await get<{ blogs: Blog[] }>(
-      `${url}/${category_id}`,
-      undefined,
-      token
-    );
-    res = { data: data.blogs, ...rest } as unknown as Response<T>;
+    res = extract(
+      await get<{ blogs: Blog[] }>(`${url}/${category_id}`, undefined, token),
+      "blogs"
+    ) as Response<T>;
   } else if (begin && end) {
     url = apis.user_blog;
-    const { data, ...rest } = await get<{ blogs: Blog[] }>(`${url}`, {
-      begin,
-      end,
-    });
-    res = { data: data.blogs, ...rest } as unknown as Response<T>;
+    res = extract(
+      await get<{ blogs: Blog[] }>(`${url}`, { begin, end }),
+      "blogs"
+    ) as Response<T>;
   }
   return res;
 }

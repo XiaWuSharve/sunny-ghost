@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-07-25 15:59:27
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-11 15:24:10
+ * @LastEditTime: 2022-08-19 12:28:53
  * @FilePath: \rogra-frontend\src\views\auth\RegistView.vue
  * @Description: 注册界面
 -->
@@ -12,10 +12,7 @@
             <v-card-title>注册</v-card-title>
             <v-spacer></v-spacer>
             <v-card-subtitle>
-                已经有账号了？
-                <v-hover v-slot="{ hover }">
-                    <v-btn text width="50" :color="hover ? 'orange' : ''" to="login">点击登录</v-btn>
-                </v-hover>
+                已经有账号了？<v-btn width="50" :to="{ name: 'login' }" plain>点击登录</v-btn>
             </v-card-subtitle>
         </div>
         <v-card-text>
