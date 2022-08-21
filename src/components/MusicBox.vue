@@ -2,7 +2,7 @@
  * @Author: XiaWuSharve sharve@foxmail.com
  * @Date: 2022-08-19 13:37:07
  * @LastEditors: XiaWuSharve sharve@foxmail.com
- * @LastEditTime: 2022-08-20 14:51:29
+ * @LastEditTime: 2022-08-21 12:01:57
  * @FilePath: \rogra-frontend\src\components\MusicBox.vue
  * @Description: 音乐盒
 -->
@@ -44,7 +44,8 @@
 
 <script lang="ts">
 import { getMusic, getMusicList } from '@/apis/music';
-import { count } from 'console';
+import { Music } from '@/interfaces/music/Music';
+import _ from 'lodash';
 import Vue from 'vue'
 export default Vue.extend({
     data() {
@@ -60,15 +61,19 @@ export default Vue.extend({
         const res = await getMusicList();
         if (res.success) {
             const list = res.data;
-            const count = list.reduce((pre: Record<string, number>, now): Record<string, number> => {
-                pre[now.pop] = (pre[now.pop] + 1) || 1;
-                return pre;
-            }, {});
-            this.music_list = list
-                .map((song: any) => {
-                    song.priority = Math.random() * count[song.pop];
-                    return song;
-                }).sort((a, b) => a.priority - b.priority);
+            const select = Object.values(
+                list.reduce(
+                    (pre: { [prop: number]: number[] }, now: Music, index: number) =>
+                        (pre[now.pop]?.push(index) || (pre[now.pop] = [index]), pre), {})
+            )
+                .map(arr => _.shuffle(arr));
+            this.music_list = [];
+            while (this.music_list.length !== list.length) {
+                const x = _.random(select.length - 1);
+                const y = select[x].pop();
+                if (y !== undefined) this.music_list.push(list[y]);
+                else select.splice(x, 1);
+            }
         } else this.$store.commit('showMessage', res);
     },
     methods: {
