@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="48" viewBox="0 0 176 48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f7a32b;
+      }
+
+      .cls-2 {
+        fill: #d3d300;
+      }
+
+      .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #db62b3;
+      }
+
+      .cls-4 {
+        font-size: 72px;
+        fill: #ff3;
+        font-family: Arial;
+      }
+
+      .cls-5, .cls-6 {
+        font-size: 14px;
+        text-anchor: middle;
+        fill: #010101;
+        font-family: "Adobe Heiti Std";
+      }
+    </style>
+  </defs>
+  <g id="画板_1" data-name="画板 1">
+    <g id="组_1" data-name="组 1">
+      <circle id="椭圆_1" data-name="椭圆 1" class="cls-1" cx="30.875" cy="35.016" r="18.063"/>
+      <path id="矩形_1" data-name="矩形 1" class="cls-2" d="M21.1,2.884a61.756,61.756,0,0,1,9.751-.9,61.744,61.744,0,0,1,9.751.9L37.551,13.542a29.857,29.857,0,0,0-6.714-.9,29.5,29.5,0,0,0-6.68.9Z"/>
+      <path id="矩形_1-2" data-name="矩形 1" class="cls-2" d="M48.219,6.031a61.41,61.41,0,0,1,7.533,6.227,61.216,61.216,0,0,1,6.257,7.5l-9.733,5.387a29.59,29.59,0,0,0-4.11-5.359,29.361,29.361,0,0,0-5.361-4.066Z"/>
+      <path id="矩形_1-3" data-name="矩形 1" class="cls-2" d="M13.776,6.031a61.41,61.41,0,0,0-7.533,6.227,61.217,61.217,0,0,0-6.257,7.5l9.733,5.387a29.591,29.591,0,0,1,4.11-5.359,29.36,29.36,0,0,1,5.361-4.066Z"/>
+      <path id="形状_1" data-name="形状 1" class="cls-3" d="M6.684,35.007A25.325,25.325,0,0,1,18.8,31.628a25.03,25.03,0,0,1,12.073,3.379,26.954,26.954,0,0,0,12.073,3.145,27.275,27.275,0,0,0,12.12-3.145V47.022l-48.339.141Z"/>
+      <text id="pm" class="cls-4" transform="matrix(0.431, 0, 0, 0.429, 9.302, 23.823)">pm</text>
+    </g>
+    <text id="夏午_镭镭" data-name="夏午&amp;镭镭" class="cls-5" transform="translate(118.463 20.885) scale(1.514)">夏午&amp;镭镭</text>
+    <text id="的小站" class="cls-6" transform="translate(117.463 42.885) scale(1.514)">的小站</text>
+  </g>
+</svg>
